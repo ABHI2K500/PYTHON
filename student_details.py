@@ -1,3 +1,7 @@
+''' AUTHOR: ABHIJITH P
+    DATE:1/10/2024
+    Python program to enter student details
+'''
 name = input('Please enter your name:')
 print('Name of the user is:','\n',name)
 roll_number = int(input('please enter your roll number:'))
