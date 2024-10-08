@@ -1,3 +1,4 @@
+#For the API file of the following code, message me on instagram @abhi2k50
 import streamlit as st
 from PyPDF2 import (PdfReader)
 from langchain.text_splitter import RecursiveCharacterTextSplitter
