@@ -8,4 +8,4 @@ str_num=str(num)
 sum=0
 for i in str_num:
     sum+=int(i)
-print(sum)
+print("sum of digits="sum)
