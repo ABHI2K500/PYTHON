@@ -1,3 +1,7 @@
+'''
+Author: Abhijith P
+Date:15-10-2024
+program to display the average height of boys and girls in a classroom'''
 ngirls=int(input("enter the number of girls in your classroom"))
 nboys=int(input("enter the number of boys in your classroom"))
 sumg=0
