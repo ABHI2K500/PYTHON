@@ -1,0 +1,44 @@
+name: Check Task Submissions
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * MON'  # Weekly check
+
+jobs:
+  check-submissions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Load team members
+        id: load_team
+        run: |
+          team_members=$(cat .github/team_members.yml | yq '.team_members[]')
+          echo "::set-output name=team_members::$team_members"
+        env:
+          team_members: ''
+
+      - name: Check for submissions
+        id: check_submissions
+        run: |
+          missing_members=""
+          for member in ${{ steps.load_team.outputs.team_members }}
+          do
+            if [[ ! -f "submissions/$member/task-submission.md" ]]; then
+              missing_members="$missing_members $member"
+            fi
+          done
+          echo "::set-output name=missing_members::$missing_members"
+
+      - name: Report Submission Status
+        if: always()
+        run: |
+          if [ -z "${{ steps.check_submissions.outputs.missing_members }}" ]; then
+            echo "All team members have submitted the task!"
+          else
+            echo "The following team members have not submitted the task:"
+            echo "${{ steps.check_submissions.outputs.missing_members }}"
+          fi
